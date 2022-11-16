@@ -288,7 +288,7 @@ ifeq ($(TARGET_ARCH),$(filter $(TARGET_ARCH),armv7l aarch64 sbsa))
 GENCODE_FLAGS += -gencode arch=compute_53,code=compute_53
 else
 # Generate PTX code from SM 35
-GENCODE_FLAGS += -gencode arch=compute_35,code=compute_35
+GENCODE_FLAGS += -gencode arch=compute_80,code=compute_80
 endif
 endif
 
