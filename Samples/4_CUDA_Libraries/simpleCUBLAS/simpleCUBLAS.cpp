@@ -68,6 +68,12 @@ static void simple_dgemm(int n, double alpha, const double *A, const double *B,
 
 /* Main */
 int main(int argc, char **argv) {
+  // Error handling. usage: ./simpleCUBLAS M K N
+  if (argc != 4) {
+    printf("usage: ./simpleCUBLAS M K N\n");
+    exit(1);
+  }
+
   int M = atoi(argv[1]);
   int N = atoi(argv[2]);
   int K = atoi(argv[3]);
@@ -102,7 +108,9 @@ int main(int argc, char **argv) {
 
   int timing_iterations = 10;
 
-  for (int i = 0; i < timing_iterations; i++) {
+  for (int iter = 0; iter < timing_iterations; iter++) {
+    // printf("i = %d\n", i);
+
     status = cublasCreate(&handle);
 
     if (status != CUBLAS_STATUS_SUCCESS) {
@@ -288,7 +296,8 @@ int main(int argc, char **argv) {
 
   float average_runtime = 0;
 
-  for (int i = 0; i < runtimes.size(); i++) {
+  // Discard the first warmup sample
+  for (int i = 1; i < runtimes.size(); i++) {
     average_runtime += runtimes[i];
   }
 
